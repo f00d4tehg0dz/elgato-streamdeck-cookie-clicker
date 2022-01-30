@@ -1,6 +1,6 @@
 # CookieClicker Unofficial Plugin for Elgato Streamdeck
 
-Click/Tap the CookieClicker 
+Tap the CookieClicker icon and gain cookies. The more cookies you gain the bigger your fame and title will become!
 
 This an extension for the [ElGato-StreamDeck](https://www.elgato.com/en/gaming/stream-deck).
 
