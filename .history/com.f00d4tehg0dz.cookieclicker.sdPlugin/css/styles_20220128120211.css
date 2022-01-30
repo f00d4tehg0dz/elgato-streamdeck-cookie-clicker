@@ -1,0 +1,39 @@
+body {
+  padding-top: 5px;
+  font-family: Arial;
+  background-color: bisque;
+  margin: auto;
+  text-align: center;
+}
+
+p {
+  font-size: 10px;
+  color: black;
+  display: block;
+  margin: 5px;
+}
+
+#cookieNumbers {
+  margin: auto;
+  text-align:center;
+  padding-top: 20px;
+  margin-bottom: 20px;
+  font-size: 30px;
+  border:5px solid;
+  border-radius:10px;
+  background-color:white;
+  width:200px;
+  height:60px;    
+}
+
+#cookieTitle {
+  margin: auto;
+  text-align:center;
+  padding-top: 5px;
+  margin-bottom: 5px;
+  font-size: 10px;
+  border:5px solid;
+  border-radius:5px;
+  background-color:lightpink;
+  height:25px;    
+}
