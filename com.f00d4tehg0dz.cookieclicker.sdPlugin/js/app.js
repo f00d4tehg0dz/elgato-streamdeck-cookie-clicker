@@ -138,12 +138,30 @@ if ($SD) {
             })));  
 		}
 
+		// 5x
+		if (num >= 250) {
+			num += 5;
+			updateTitleFn(JSON.parse(JSON.stringify({
+                "number": num,
+                "title": "Mine",
+            })));  
+		}
+
 		// 10x
 		if (num >= 500) {
 			num += 10;
 			updateTitleFn(JSON.parse(JSON.stringify({
                 "number": num,
                 "title": "Factory",
+            })));  
+		}
+
+		// 20x
+		if (num >= 750) {
+			num += 20;
+			updateTitleFn(JSON.parse(JSON.stringify({
+                "number": num,
+                "title": "Bank",
             })));  
 		}
 
@@ -156,12 +174,39 @@ if ($SD) {
             })));  
 		}
 
+		// 40x
+		if (num >= 1400) {
+			num += 40;
+			updateTitleFn(JSON.parse(JSON.stringify({
+                "number": num,
+                "title": "Plant",
+            })));  
+		}
+
+		// 50x
+		if (num >= 2500) {
+			num += 50;
+			updateTitleFn(JSON.parse(JSON.stringify({
+                "number": num,
+                "title": "Shipment",
+            })));  
+		}
+
+		// 100x
+		if (num >= 10000) {
+			num += 100;
+            updateTitleFn(JSON.parse(JSON.stringify({
+                "number": num,
+                "title": "Fractal",
+            })));      
+		}   
+
 		// 1000x
 		if (num >= 100000) {
 			num += 1000;
             updateTitleFn(JSON.parse(JSON.stringify({
                 "number": num,
-                "title": "S. Plant",
+                "title": "Portal",
             })));      
 		}       
 	
