@@ -46,14 +46,12 @@ if ($SD) {
 
 	function setTitleStatus(context, settings) {
 		$SD.api.setTitle(context, "Updating");
-	
         getResults(result => resultCallback(result, context, settings));
 	}
 
    
     function numbersBoard(result) {
-        var resultString = result.number,
-        textWidth = ctx.measureText(resultString).width;
+        var resultString = result.number;
         ctx.font = 'bold 48px Arial';
 		ctx.textAlign = 'left';
         ctx.fillStyle = "#deff00";
@@ -63,12 +61,12 @@ if ($SD) {
     }
 
     function titleBoard(result) {
-        var resultString = result.title,
-        textWidth = ctx.measureText(resultString).width;
+        var resultString = result.title;
         ctx.font = 'bold 30px Arial';
 		ctx.textAlign = 'left';
         ctx.fillStyle = "#deff00";
 		return resultString
+
         // ctx.fill();
         // ctx.fillText(resultString , (canvas.width/2) - (textWidth / 2), 120);
     }
@@ -85,12 +83,15 @@ if ($SD) {
             ctx = canvas.getContext("2d");
             img = document.getElementById("bg");
             ctx.drawImage(img, 0, 0);
+			ctx.lineWidth=1.3;
 
 			textWidth = ctx.measureText(numbersBoard(result)).width;
 			ctx.fillText(numbersBoard(result, context), (canvas.width/2) - (textWidth / 2), 80);
-            
+            ctx.strokeText(numbersBoard(result, context), (canvas.width/2) - (textWidth / 2), 80);
+
 			textWidth = ctx.measureText(titleBoard(result)).width;
 			ctx.fillText(titleBoard(result, context), (canvas.width/2) - (textWidth / 2), 120);
+			ctx.strokeText(titleBoard(result, context), (canvas.width/2) - (textWidth / 2), 120);
             
             ctx.font = 'bold 30px Arial';
 		    ctx.fillStyle = "#deff00";
@@ -106,7 +107,7 @@ if ($SD) {
                 context,
                 block.getImageData()
             );
-			
+
 			return;
 		}
 	}
@@ -160,7 +161,7 @@ if ($SD) {
 			num += 1000;
             updateTitleFn(JSON.parse(JSON.stringify({
                 "number": num,
-                "title": "Super-Plant",
+                "title": "S. Plant",
             })));      
 		}       
 	
