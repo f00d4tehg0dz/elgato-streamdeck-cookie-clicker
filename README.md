@@ -1,4 +1,4 @@
-# CookieCLicker Unofficial Plugin for Elgato Streamdeck
+# CookieClicker Unofficial Plugin for Elgato Streamdeck
 
 Click/Tap the CookieClicker 
 
@@ -6,7 +6,7 @@ This an extension for the [ElGato-StreamDeck](https://www.elgato.com/en/gaming/s
 
 ## Screenshot
 
-![screencap.png](doc/screencap.png)
+![screencap.png](doc/screencap.PNG)
 
 Please report any issues you see on the project's Github page. I welcome any feedback.
 
@@ -15,6 +15,8 @@ Please report any issues you see on the project's Github page. I welcome any fee
 Download from Release folder [Release Folder](Release/com.f00d4tehg0dz.cookieclicker.streamDeckPlugin)
 
 Double click to install to StreamDeck. 
+
+## Debugging
 
 You can debug the Javascript plugin using Google Chrome's web developer tools. In order to do so, you first need to enable the HTML remote debugger in Stream Deck:
 
