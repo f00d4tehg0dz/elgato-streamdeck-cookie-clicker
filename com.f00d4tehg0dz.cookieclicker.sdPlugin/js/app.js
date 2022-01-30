@@ -56,8 +56,6 @@ if ($SD) {
 		ctx.textAlign = 'left';
         ctx.fillStyle = "#deff00";
 		return resultString
-        // ctx.fill();
-        // ctx.fillText(resultString , (canvas.width/2) - (textWidth / 2), 80);
     }
 
     function titleBoard(result) {
@@ -66,9 +64,6 @@ if ($SD) {
 		ctx.textAlign = 'left';
         ctx.fillStyle = "#deff00";
 		return resultString
-
-        // ctx.fill();
-        // ctx.fillText(resultString , (canvas.width/2) - (textWidth / 2), 120);
     }
 
 	function resultCallback(result, context) {
