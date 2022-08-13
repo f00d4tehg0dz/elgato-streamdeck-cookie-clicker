@@ -1,12 +1,14 @@
-# CookieClicker Unofficial Plugin for Elgato Streamdeck
+# CookieClicker Official Plugin for Elgato Streamdeck
 
 Tap the CookieClicker icon and gain cookies. The more cookies you gain the bigger your fame and title will become!
+Submit your score online, and compete against other stream deck users. 
+[Cookie Clicker LeaderBoard Website](https://cookie-clicker-leader-board-react.vercel.app/)
 
 This an extension for the [ElGato-StreamDeck](https://www.elgato.com/en/gaming/stream-deck).
 
 ## Screenshot
 
-![screencap.gif](doc/screencap.gif)
+![screencap.gif](https://github.com/f00d4tehg0dz/elgato-streamdeck-cookie-clicker/blob/main/elgatogif_AME/elgatogif.gif?raw=true)
 
 Please report any issues you see on the project's Github page. I welcome any feedback.
 
