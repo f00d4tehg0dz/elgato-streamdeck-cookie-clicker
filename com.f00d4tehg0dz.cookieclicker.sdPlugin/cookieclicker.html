@@ -4,54 +4,80 @@
 <head>
     <meta charset="utf-8"/>
     <title>com.f00d4tehg0dz.cookieclicker</title>
-    <link rel="stylesheet" href="css/sdpi.css">
-    <script src="js/jquery-3.3.1.js"></script>
-    <script src="js/common.js"></script>
+    <link rel="stylesheet" href="./css/sdpi.css">
+    <script src="./js/jquery-3.3.1.js"></script>
+    <script src="./js/common.js"></script>
 </head>
 
 <body>
     <div class="sdpi-wrapper">
         <div class="sdpi-item">
+            <div class="sdpi-item-label">Enter Name for LeaderBoard</div>
+            <input class="sdpi-item-value" id="nameKey" required>
+
+        </div>
+        <div class="sdpi-item">
+            <div class="sdpi-item-label">LeaderBoard</div>
+            <button  onclick="openLeaderBoard()">View</button >
+        </div>
+        <div class="sdpi-item">
             <div class="sdpi-item-label">Instructions</div>
             <details class="sdpi-item-value">
                 <p>Click the cookie to make more cookies<br>
-                Cookie Title upgrades as you reach cookie clicker milestones <br></p>
-                <p>You can learn more about this plugin by visiting its Github 
-                    page by <a
-                            href="#"
-                            onclick="openGithub()">clicking here.</a>
+                    Cookie Title upgrades and inserts multiplier as you reach cookie clicker milestones
+                    <br>You can learn more about this plugin by visiting its <button onclick="openGithub()">Github
+                        page</button></p>
             </details>
         </div>
+        <div class="sdpi-item">
+            <button class="sdpi-item-value" id="updateButton">Submit to LeaderBoard</button>
+        </div>
     </div>
-    <script src="js/jquery-3.3.1.js"></script>
+
+
     <script>
         let uuid = "",
-        actionName = "";
+            actionName = "";
 
-    if ($SD) {
-        $SD.on('connected', function (jsonObj) {
-            uuid = jsonObj['uuid'];
-            if (jsonObj.hasOwnProperty('actionInfo')) {
-                actionName = jsonObj.actionInfo.action;
+        if ($SD) {
+            $SD.on('connected', function (jsonObj) {
+                uuid = jsonObj['uuid'];
+                if (jsonObj.hasOwnProperty('actionInfo')) {
+                    actionName = jsonObj.actionInfo.action;
+                }
+                if (settings.nameKey) {
+                    $("#nameKey").val(settings.nameKey);
+                }
+
+                let settings = $SD.actionInfo.payload.settings;
+            });
+        }
+        function openGithub() {
+                console.log("hel")
+                $SD.api.openUrl($SD.actionInfo.context,
+                    "https://github.com/f00d4tehg0dz/elgato-streamdeck-cookie-clicker")
             }
-            let settings = $SD.actionInfo.payload.settings;
-        });
-    }
-       
+
+            function openLeaderBoard() {
+                $SD.api.openUrl($SD.actionInfo.context,
+                    "https://cookie-clicker-leader-board-react.vercel.app/")
+            }
         $(document).ready(function () {
+           
 
             $("#updateButton").click(function () {
+                let nameKey = $("#nameKey").val();
 
-            if ($SD && $SD.connection) {
-
-                $SD.api.sendToPlugin(uuid, actionName, payload);
-            }
+                if (!$("#nameKey").val()) {
+                    return;
+                }
+                if ($SD && $SD.connection) {
+                    let payload = {};
+                    payload.nameKey = nameKey;
+                    $SD.api.sendToPlugin(uuid, actionName, payload);
+                }
             });
-            function openGithub() {
-                $SD.api.openUrl($SD.actionInfo.context, "https://github.com/f00d4tehg0dz/Doge-Coin-Plugin-for-Eglato-Streamdeck")
-        }
         });
-        
     </script>
 
 </body>
