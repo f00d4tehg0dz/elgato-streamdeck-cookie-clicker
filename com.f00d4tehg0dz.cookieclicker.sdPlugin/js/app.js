@@ -89,6 +89,7 @@ if ($SD) {
 
 				xhr.setRequestHeader("Accept", "application/json");
 				xhr.setRequestHeader("Content-Type", "application/json");
+				xhr.setRequestHeader('x-access-token', "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmb28iOiJmdWNrIiwiaWF0IjoxNjYwNTI2OTQ3fQ.zP9XdIm6dbU-RAE1c9tyng7qcl1tqmgakXp2Aa3gqZM");
 
 				xhr.onload = () => console.log(xhr.responseText);
 				const name = settings.nameKey;
@@ -106,6 +107,9 @@ if ($SD) {
 				
 				xhr.setRequestHeader("Accept", "application/json");
 				xhr.setRequestHeader("Content-Type", "application/json");
+				xhr.setRequestHeader('x-access-token', "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmb28iOiJmdWNrIiwiaWF0IjoxNjYwNTI2OTQ3fQ.zP9XdIm6dbU-RAE1c9tyng7qcl1tqmgakXp2Aa3gqZM");
+
+
 				const name = settings.nameKey;
 				xhr.onload = () => console.log(xhr.responseText);
 				let data = `{
@@ -124,6 +128,7 @@ if ($SD) {
 		// The first argument is the post type (GET, POST, PUT, DELETE, etc.)
 		// The second argument is the endpoint URL
 		xhr.open('GET', `https://f00d.me/api/leaderboard/${uuid}`);
+						
 		xhr.send();
 	}
 
