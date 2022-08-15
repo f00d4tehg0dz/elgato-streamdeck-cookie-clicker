@@ -89,7 +89,7 @@ if ($SD) {
 
 				xhr.setRequestHeader("Accept", "application/json");
 				xhr.setRequestHeader("Content-Type", "application/json");
-				xhr.setRequestHeader('x-access-token', "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmb28iOiJmdWNrIiwiaWF0IjoxNjYwNTI2OTQ3fQ.zP9XdIm6dbU-RAE1c9tyng7qcl1tqmgakXp2Aa3gqZM");
+				xhr.setRequestHeader('xxx', "xxx");
 
 				xhr.onload = () => console.log(xhr.responseText);
 				const name = settings.nameKey;
@@ -107,7 +107,7 @@ if ($SD) {
 				
 				xhr.setRequestHeader("Accept", "application/json");
 				xhr.setRequestHeader("Content-Type", "application/json");
-				xhr.setRequestHeader('x-access-token', "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmb28iOiJmdWNrIiwiaWF0IjoxNjYwNTI2OTQ3fQ.zP9XdIm6dbU-RAE1c9tyng7qcl1tqmgakXp2Aa3gqZM");
+				xhr.setRequestHeader('xxx', "xxx");
 
 
 				const name = settings.nameKey;
