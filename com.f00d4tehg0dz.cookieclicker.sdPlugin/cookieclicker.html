@@ -45,11 +45,14 @@
                 if (jsonObj.hasOwnProperty('actionInfo')) {
                     actionName = jsonObj.actionInfo.action;
                 }
+
+                let settings = $SD.actionInfo.payload.settings;
                 if (settings.nameKey) {
                     $("#nameKey").val(settings.nameKey);
                 }
-
-                let settings = $SD.actionInfo.payload.settings;
+                if (settings.nameKey == null) {
+                    $("#nameKey").val(null);
+                }
             });
         }
         function openGithub() {

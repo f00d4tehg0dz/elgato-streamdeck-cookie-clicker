@@ -89,7 +89,7 @@ if ($SD) {
 
 				xhr.setRequestHeader("Accept", "application/json");
 				xhr.setRequestHeader("Content-Type", "application/json");
-				xhr.setRequestHeader('xxx', "xxx");
+				//xhr.setRequestHeader('x-access-token', "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmb28iOiJmdWNrIiwiaWF0IjoxNjYxMTA3NTY5fQ.NF-Uc_3MzT5DxvXxwx5qN_6d2hWUUqJBJZpD2qmHrRI");
 
 				xhr.onload = () => console.log(xhr.responseText);
 				const name = settings.nameKey;
@@ -103,11 +103,11 @@ if ($SD) {
 				console.log(xhr.responseText);
 			} else {
 				// Runs when it's not
-				xhr.open("POST", "https://f00d.me/api/leaderboard");
+				xhr.open("POST", "https://f00d.me/api/leaderboard/");
 				
 				xhr.setRequestHeader("Accept", "application/json");
 				xhr.setRequestHeader("Content-Type", "application/json");
-				xhr.setRequestHeader('xxx', "xxx");
+				//xhr.setRequestHeader('x-access-token', "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmb28iOiJmdWNrIiwiaWF0IjoxNjYxMTA3NTY5fQ.NF-Uc_3MzT5DxvXxwx5qN_6d2hWUUqJBJZpD2qmHrRI");
 
 
 				const name = settings.nameKey;

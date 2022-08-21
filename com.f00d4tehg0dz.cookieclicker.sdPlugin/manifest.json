@@ -18,13 +18,15 @@
   ],
   "SDKVersion": 2,
   "Author": "Adrian Chrysanthou",
+  "Category": "Cookie Clicker [f00d4tehg0dz]",
+  "CategoryIcon": "icons/category-icon",
   "CodePath": "index.html",
   "Description": "A CookieClicker Status plugin developed by Adrian Chrysanthou. You can find more information about this plugin at https://github.com/f00d4tehg0dz/elgato-streamdeck-cookie-clicker. Please report any issues you see on the project's Github page. I welcome any feedback.",
-  "Name": "CookieClicker Status",
+  "Name": "Cookie Clicker",
   "Icon": "icon",
   "URL": "https://github.com/f00d4tehg0dz/elgato-streamdeck-cookie-clicker",
   "PropertyInspectorPath": "cookieclicker.html",
-  "Version": "3.1",
+  "Version": "3.4",
   "OS": [
     {
       "Platform": "mac",
