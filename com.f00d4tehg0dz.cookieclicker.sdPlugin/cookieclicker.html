@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <meta charset="utf-8"/>
+    <meta charset="utf-8" />
     <title>com.f00d4tehg0dz.cookieclicker</title>
     <link rel="stylesheet" href="./css/sdpi.css">
     <script src="./js/jquery-3.3.1.js"></script>
@@ -12,19 +12,19 @@
 <body>
     <div class="sdpi-wrapper">
         <div class="sdpi-item">
-            <div class="sdpi-item-label">Enter Name for LeaderBoard</div>
-            <input class="sdpi-item-value" id="nameKey" required>
-
+            <div class="sdpi-item-label">Name</div>
+            <input class="sdpi-item-value" id="nameKey" >
+            <button class="sdpi-item-value" id="saveButton">💾</button>
         </div>
         <div class="sdpi-item">
             <div class="sdpi-item-label">LeaderBoard</div>
-            <button  onclick="openLeaderBoard()">View</button >
+            <button onclick="openLeaderBoard()">View</button>
         </div>
         <div class="sdpi-item">
             <div class="sdpi-item-label">Instructions</div>
             <details class="sdpi-item-value">
                 <p>Click the cookie to make more cookies<br>
-                    Cookie Title upgrades and inserts multiplier as you reach cookie clicker milestones
+                    Cookie titles upgrade and X a multiplier as you reach cookie clicker milestones<br>
                     <br>You can learn more about this plugin by visiting its <button onclick="openGithub()">Github
                         page</button></p>
             </details>
@@ -47,26 +47,24 @@
                 }
 
                 let settings = $SD.actionInfo.payload.settings;
+
                 if (settings.nameKey) {
                     $("#nameKey").val(settings.nameKey);
                 }
-                if (settings.nameKey == null) {
-                    $("#nameKey").val(null);
-                }
             });
         }
-        function openGithub() {
-                console.log("hel")
-                $SD.api.openUrl($SD.actionInfo.context,
-                    "https://github.com/f00d4tehg0dz/elgato-streamdeck-cookie-clicker")
-            }
 
-            function openLeaderBoard() {
-                $SD.api.openUrl($SD.actionInfo.context,
-                    "https://cookie-clicker-leader-board-react.vercel.app/")
-            }
+        function openGithub() {
+
+            $SD.api.openUrl($SD.actionInfo.context,
+                "https://github.com/f00d4tehg0dz/elgato-streamdeck-cookie-clicker")
+        }
+
+        function openLeaderBoard() {
+            $SD.api.openUrl($SD.actionInfo.context,
+                "https://cookie-clicker-leader-board-react.vercel.app/")
+        }
         $(document).ready(function () {
-           
 
             $("#updateButton").click(function () {
                 let nameKey = $("#nameKey").val();
@@ -78,6 +76,21 @@
                     let payload = {};
                     payload.nameKey = nameKey;
                     $SD.api.sendToPlugin(uuid, actionName, payload);
+                }
+            });
+
+            $("#saveButton").click(function () {
+                let nameKey = $("#nameKey").val();
+
+                if (!$("#nameKey").val()) {
+                    return;
+                }
+                if ($SD && $SD.connection) {
+                    let payload = {};
+                    let saveBtn = true;
+                    payload.nameKey = nameKey;
+                    payload.saveBtn = saveBtn;
+                    $SD.api.sendToPlugin(uuid,actionName, payload);
                 }
             });
         });

@@ -16,9 +16,10 @@ if ($SD) {
 	});
 
 	$SD.on(actionName + ".willAppear", function(jsonObj) {
-		let settings = jsonObj.payload.settings;
-
-		if (settings.automaticRefresh) {
+		let uuid = jsonObj.context;
+		let settings = jsonObj.payload;
+		//setLeaderBoardScore(settings, uuid);
+		if (settings.nameKey)  {
 			initiateStatus(jsonObj.context, jsonObj.payload.settings);
 		}
 		
@@ -27,14 +28,24 @@ if ($SD) {
 	$SD.on(actionName + ".sendToPlugin", function(jsonObj) {
 		let uuid = jsonObj.context;
 		let settings = jsonObj.payload;
-		setLeaderBoardScore(settings, uuid);
-		//$SD.api.setSettings(jsonObj.context, jsonObj.payload);
-		//initiateStatus(jsonObj.context, jsonObj.payload);
+		
+		if (!settings.saveBtn == true)  {
+			$SD.api.setSettings(jsonObj.context, jsonObj.payload);
+			setLeaderBoardScore(settings, uuid);
+			initiateStatus(jsonObj.context, jsonObj.payload);
+		}
+		else {
+			initiateStatus(jsonObj.context, jsonObj.payload.settings);
+			$SD.api.setSettings(jsonObj.context, jsonObj.payload);
+		}
+		
 	});
+	
 
 	// When pressed, Cookie Clicker Activates!
 	$SD.on(actionName + ".keyUp", function(jsonObj) {
-		initiateStatus(jsonObj.context, jsonObj.payload.settings);
+		setLeaderBoardScore(settings, uuid);
+		setNumberIncrease(jsonObj.context, jsonObj.payload.settings)
 		console.log();
 	});
 
@@ -65,6 +76,10 @@ if ($SD) {
         getResults(result => resultCallback(result, context, settings));
 	}
    
+	function setNumberIncrease(context, settings) {
+		$SD.api.setTitle(context, "Updating");
+        getResultsIncrease(result => resultCallback(result, context, settings));
+	}
     function numbersBoard(result) {
         var resultString = result.number;
         ctx.font = 'bold 48px Arial';
@@ -190,7 +205,7 @@ if ($SD) {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
     }
 
-	function getResults(updateTitleFn) {
+	function getResultsIncrease(updateTitleFn) {
         
         // 1x
         if (localStorage.score >= 0) {
@@ -243,4 +258,46 @@ if ($SD) {
 		}
 	
 	}
+	function getResults(updateTitleFn) {
+        
+        // 1x
+        if (localStorage.score >= 0) {
+            updateTitleFn(JSON.parse(JSON.stringify({
+                "number": localStorage.score,
+                "title": "Grandma",
+            })));  
+		}
+
+		// 2x
+		if (localStorage.score >= 30) {
+			updateTitleFn(JSON.parse(JSON.stringify({
+                "number": localStorage.score,
+                "title": "Baker",
+            })));  
+		}
+
+		// 10x
+		if (localStorage.score >= 500) {
+			updateTitleFn(JSON.parse(JSON.stringify({
+                "number": localStorage.score,
+                "title": "Factory",
+            })));  
+		}
+
+		// 30x
+		if (localStorage.score >= 1000) {
+			updateTitleFn(JSON.parse(JSON.stringify({
+                "number": localStorage.score,
+                "title": "Plant",
+            })));  
+		}
+		// 1000x
+		if (localStorage.score >= 100000) {
+            updateTitleFn(JSON.parse(JSON.stringify({
+                "number": localStorage.score,
+                "title": "S. Plant",
+            })));      
+		}
+	}
+	
 }
