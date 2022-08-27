@@ -19,6 +19,7 @@ if ($SD) {
 		let uuid = jsonObj.context;
 		let settings = jsonObj.payload;
 		//setLeaderBoardScore(settings, uuid);
+		setTitleStatus(jsonObj.context, jsonObj.payload.settings)
 		if (settings.nameKey)  {
 			initiateStatus(jsonObj.context, jsonObj.payload.settings);
 		}
@@ -44,7 +45,9 @@ if ($SD) {
 
 	// When pressed, Cookie Clicker Activates!
 	$SD.on(actionName + ".keyUp", function(jsonObj) {
-		setLeaderBoardScore(settings, uuid);
+		// let uuid = jsonObj.context;
+		// let settings = jsonObj.payload;
+		// setLeaderBoardScore(settings, uuid);
 		setNumberIncrease(jsonObj.context, jsonObj.payload.settings)
 		console.log();
 	});
