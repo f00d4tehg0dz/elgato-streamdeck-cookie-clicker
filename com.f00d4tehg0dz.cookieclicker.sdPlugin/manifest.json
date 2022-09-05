@@ -26,7 +26,7 @@
   "Icon": "icon",
   "URL": "https://github.com/f00d4tehg0dz/elgato-streamdeck-cookie-clicker",
   "PropertyInspectorPath": "cookieclicker.html",
-  "Version": "3.5",
+  "Version": "3.6",
   "OS": [
     {
       "Platform": "mac",
@@ -37,7 +37,7 @@
       "MinimumVersion": "10"
     }
   ],
-  "Software": 
+  "Software":
     {
         "MinimumVersion" : "4.1"
     }

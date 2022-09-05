@@ -9,7 +9,7 @@ if ($SD) {
 	  else {
 		num = localStorage.score
 	  }
-	
+
 	$SD.on("connected", function(jsonObj) {
 		console.log("Connected!");
 
@@ -23,13 +23,13 @@ if ($SD) {
 		if (settings.nameKey)  {
 			initiateStatus(jsonObj.context, jsonObj.payload.settings);
 		}
-		
+
 	});
 
 	$SD.on(actionName + ".sendToPlugin", function(jsonObj) {
 		let uuid = jsonObj.context;
 		let settings = jsonObj.payload;
-		
+
 		if (!settings.saveBtn == true)  {
 			$SD.api.setSettings(jsonObj.context, jsonObj.payload);
 			setLeaderBoardScore(settings, uuid);
@@ -39,9 +39,9 @@ if ($SD) {
 			initiateStatus(jsonObj.context, jsonObj.payload.settings);
 			$SD.api.setSettings(jsonObj.context, jsonObj.payload);
 		}
-		
+
 	});
-	
+
 
 	// When pressed, Cookie Clicker Activates!
 	$SD.on(actionName + ".keyUp", function(jsonObj) {
@@ -52,7 +52,7 @@ if ($SD) {
 		console.log();
 	});
 
-	
+
 
 	function initiateStatus(context, settings) {
 
@@ -71,14 +71,14 @@ if ($SD) {
 		ctx.font = 'bold 20px Arial';
 		ctx.fillStyle = "white";
 		ctx.textAlign = 'left';
-		
+
 	}
 
 	function setTitleStatus(context, settings) {
 		$SD.api.setTitle(context, "Updating");
         getResults(result => resultCallback(result, context, settings));
 	}
-   
+
 	function setNumberIncrease(context, settings) {
 		$SD.api.setTitle(context, "Updating");
         getResultsIncrease(result => resultCallback(result, context, settings));
@@ -107,7 +107,7 @@ if ($SD) {
 
 				xhr.setRequestHeader("Accept", "application/json");
 				xhr.setRequestHeader("Content-Type", "application/json");
-				//xhr.setRequestHeader('x-access-token', "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmb28iOiJmdWNrIiwiaWF0IjoxNjYxMTA3NTY5fQ.NF-Uc_3MzT5DxvXxwx5qN_6d2hWUUqJBJZpD2qmHrRI");
+				xhr.setRequestHeader('x-access-token', "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmb28iOiJmdWNrIiwiaWF0IjoxNjYyMzM5NTE4fQ.x-CrvDNdUYu4Okgb1xt1ONg7DHIx9swkrlnUeD2QAoc");
 
 				xhr.onload = () => console.log(xhr.responseText);
 				const name = settings.nameKey;
@@ -122,10 +122,10 @@ if ($SD) {
 			} else {
 				// Runs when it's not
 				xhr.open("POST", "https://f00d.me/api/leaderboard/");
-				
+
 				xhr.setRequestHeader("Accept", "application/json");
 				xhr.setRequestHeader("Content-Type", "application/json");
-				//xhr.setRequestHeader('x-access-token', "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmb28iOiJmdWNrIiwiaWF0IjoxNjYxMTA3NTY5fQ.NF-Uc_3MzT5DxvXxwx5qN_6d2hWUUqJBJZpD2qmHrRI");
+				xhr.setRequestHeader('x-access-token', "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmb28iOiJmdWNrIiwiaWF0IjoxNjYyMzM5NTE4fQ.x-CrvDNdUYu4Okgb1xt1ONg7DHIx9swkrlnUeD2QAoc");
 
 
 				const name = settings.nameKey;
@@ -135,7 +135,7 @@ if ($SD) {
 					"name": "${name}",
 					"score": ${localStorage.score}
 				}`;
-			
+
 				xhr.send(data);
 				console.log(xhr.responseText);
 			}
@@ -146,7 +146,7 @@ if ($SD) {
 		// The first argument is the post type (GET, POST, PUT, DELETE, etc.)
 		// The second argument is the endpoint URL
 		xhr.open('GET', `https://f00d.me/api/leaderboard/${uuid}`);
-						
+
 		xhr.send();
 	}
 
@@ -162,7 +162,7 @@ if ($SD) {
     }
 
 	function resultCallback(result, context) {
-		
+
 		if (!result.hasOwnProperty("Object")) {
 
             // load bg-image
@@ -182,7 +182,7 @@ if ($SD) {
 			textWidth = ctx.measureText(titleBoard(result)).width;
 			ctx.fillText(titleBoard(result, context), (canvas.width/2) - (textWidth / 2), 120);
 			ctx.strokeText(titleBoard(result, context), (canvas.width/2) - (textWidth / 2), 120);
-            
+
             ctx.font = 'bold 30px Arial';
 		    ctx.fillStyle = "#deff00";
 		    ctx.textAlign = 'left';
@@ -191,7 +191,7 @@ if ($SD) {
             ctx.fill();
             textWidth = ctx.measureText("🍪").width;
             ctx.fillText("🍪", (canvas.width/2) - (textWidth / 2), 20);
-	
+
             $SD.api.setTitle(context, '', null);
             $SD.api.setImage(
                 context,
@@ -209,7 +209,7 @@ if ($SD) {
     }
 
 	function getResultsIncrease(updateTitleFn) {
-        
+
         // 1x
         if (localStorage.score >= 0) {
 			var scores = (parseInt(localStorage.getItem("score"))+1);
@@ -217,7 +217,7 @@ if ($SD) {
             updateTitleFn(JSON.parse(JSON.stringify({
                 "number": localStorage.score,
                 "title": "Grandma",
-            })));  
+            })));
 		}
 
 		// 2x
@@ -227,7 +227,7 @@ if ($SD) {
 			updateTitleFn(JSON.parse(JSON.stringify({
                 "number": localStorage.score,
                 "title": "Baker",
-            })));  
+            })));
 		}
 
 		// 10x
@@ -237,7 +237,7 @@ if ($SD) {
 			updateTitleFn(JSON.parse(JSON.stringify({
                 "number": localStorage.score,
                 "title": "Factory",
-            })));  
+            })));
 		}
 
 		// 30x
@@ -247,7 +247,7 @@ if ($SD) {
 			updateTitleFn(JSON.parse(JSON.stringify({
                 "number": localStorage.score,
                 "title": "Plant",
-            })));  
+            })));
 		}
 
 		// 1000x
@@ -257,18 +257,18 @@ if ($SD) {
             updateTitleFn(JSON.parse(JSON.stringify({
                 "number": localStorage.score,
                 "title": "S. Plant",
-            })));      
+            })));
 		}
-	
+
 	}
 	function getResults(updateTitleFn) {
-        
+
         // 1x
         if (localStorage.score >= 0) {
             updateTitleFn(JSON.parse(JSON.stringify({
                 "number": localStorage.score,
                 "title": "Grandma",
-            })));  
+            })));
 		}
 
 		// 2x
@@ -276,7 +276,7 @@ if ($SD) {
 			updateTitleFn(JSON.parse(JSON.stringify({
                 "number": localStorage.score,
                 "title": "Baker",
-            })));  
+            })));
 		}
 
 		// 10x
@@ -284,7 +284,7 @@ if ($SD) {
 			updateTitleFn(JSON.parse(JSON.stringify({
                 "number": localStorage.score,
                 "title": "Factory",
-            })));  
+            })));
 		}
 
 		// 30x
@@ -292,15 +292,15 @@ if ($SD) {
 			updateTitleFn(JSON.parse(JSON.stringify({
                 "number": localStorage.score,
                 "title": "Plant",
-            })));  
+            })));
 		}
 		// 1000x
 		if (localStorage.score >= 100000) {
             updateTitleFn(JSON.parse(JSON.stringify({
                 "number": localStorage.score,
                 "title": "S. Plant",
-            })));      
+            })));
 		}
 	}
-	
+
 }
