@@ -1,30 +1,27 @@
 if ($SD) {
 	const actionName = "com.f00d4tehg0dz.cookieclicker.action";
-	var num = 0;
 	if (localStorage.getItem("score") === null) {
 		var scores = 0;
 		localStorage.setItem("score", scores.toString());
 		localStorage.score = 0
 	  }
 	  else {
-		num = localStorage.score
+		// localStorage.score = 0
 	  }
 
 	$SD.on("connected", function(jsonObj) {
-		console.log("Connected!");
-
 	});
 
 	$SD.on(actionName + ".willAppear", function(jsonObj) {
 		let uuid = jsonObj.context;
 		let settings = jsonObj.payload;
-		//setLeaderBoardScore(settings, uuid);
-		setTitleStatus(jsonObj.context, jsonObj.payload.settings)
+		// setLeaderBoardScore(settings, uuid);
+		setTitleStatus(uuid, settings)
 		if (settings.nameKey)  {
 			initiateStatus(jsonObj.context, jsonObj.payload.settings);
 		}
-
 	});
+
 
 	$SD.on(actionName + ".sendToPlugin", function(jsonObj) {
 		let uuid = jsonObj.context;
@@ -45,53 +42,42 @@ if ($SD) {
 
 	// When pressed, Cookie Clicker Activates!
 	$SD.on(actionName + ".keyUp", function(jsonObj) {
-		// let uuid = jsonObj.context;
-		// let settings = jsonObj.payload;
-		// setLeaderBoardScore(settings, uuid);
 		setNumberIncrease(jsonObj.context, jsonObj.payload.settings)
-		console.log();
 	});
 
 
+// Declare the canvas variable at the top of your script
+var canvas;
 
-	function initiateStatus(context, settings) {
+function initiateStatus(context, settings) {
+    // Check if the canvas is already initialized
+    if (!canvas) {
+        // If not, create the canvas element
+        canvas = document.createElement('canvas');
+        canvas.width = 144;
+        canvas.height = 144;
+        block = new Block(canvas);
+    }
 
-		// Initial call for the first time
-		setTitleStatus(context, settings);
-
-		// Start Canvas
-		canvas = document.createElement('canvas');
-		canvas.width = 144;
-		canvas.height = 144;
-		block = new Block(canvas);
-		ctx = canvas.getContext('2d');
-        img = document.getElementById("bg");
-        ctx.drawImage(img, 0, 0);
-		// Set the text font styles
-		ctx.font = 'bold 20px Arial';
-		ctx.fillStyle = "white";
-		ctx.textAlign = 'left';
-
-	}
+    // The rest of your code remains unchanged
+    ctx = canvas.getContext('2d');
+    img = document.getElementById("bg");
+    ctx.drawImage(img, 0, 0);
+    ctx.font = 'bold 20px Arial';
+    ctx.fillStyle = "white";
+    ctx.textAlign = 'left';
+}
 
 	function setTitleStatus(context, settings) {
 		$SD.api.setTitle(context, "Updating");
-        getResults(result => resultCallback(result, context, settings));
+        updateScoreAndTitle(result => resultCallback(result, context, settings));
 	}
 
 	function setNumberIncrease(context, settings) {
 		$SD.api.setTitle(context, "Updating");
-        getResultsIncrease(result => resultCallback(result, context, settings));
+        updateScoreAndTitle (result => resultCallback(result, context, settings));
 	}
-    function numbersBoard(result) {
-        var resultString = result.number;
-        ctx.font = 'bold 48px Arial';
-		ctx.textAlign = 'left';
-        ctx.fillStyle = "#deff00";
-		return resultString
-        // ctx.fill();
-        // ctx.fillText(resultString , (canvas.width/2) - (textWidth / 2), 80);
-    }
+
 
 	function setLeaderBoardScore(settings,uuid) {
 		// Set up our HTTP request
@@ -107,9 +93,9 @@ if ($SD) {
 
 				xhr.setRequestHeader("Accept", "application/json");
 				xhr.setRequestHeader("Content-Type", "application/json");
-				xhr.setRequestHeader('x-access-token', "");
+				xhr.setRequestHeader('x-access-token', "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmb28iOiJmdWNrIiwiaWF0IjoxNjYyMzM5NTE4fQ.x-CrvDNdUYu4Okgb1xt1ONg7DHIx9swkrlnUeD2QAoc");
 
-				xhr.onload = () => console.log(xhr.responseText);
+
 				const name = settings.nameKey;
 				let data = `{
 					"_id": "${uuid}",
@@ -118,14 +104,14 @@ if ($SD) {
 				}`;
 
 				xhr.send(data);
-				console.log(xhr.responseText);
+
 			} else {
 				// Runs when it's not
 				xhr.open("POST", "https://f00d.me/api/leaderboard/");
 
 				xhr.setRequestHeader("Accept", "application/json");
 				xhr.setRequestHeader("Content-Type", "application/json");
-				xhr.setRequestHeader('x-access-token', "");
+				xhr.setRequestHeader('x-access-token', "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmb28iOiJmdWNrIiwiaWF0IjoxNjYyMzM5NTE4fQ.x-CrvDNdUYu4Okgb1xt1ONg7DHIx9swkrlnUeD2QAoc");
 
 
 				const name = settings.nameKey;
@@ -137,7 +123,7 @@ if ($SD) {
 				}`;
 
 				xhr.send(data);
-				console.log(xhr.responseText);
+
 			}
 
 		};
@@ -150,16 +136,44 @@ if ($SD) {
 		xhr.send();
 	}
 
-    function titleBoard(result) {
-        var resultString = result.title;
-        ctx.font = 'bold 30px Arial';
+
+	function wrapText(context, text, x, y, maxWidth, lineHeight) {
+		var words = text.split(' ');
+		var line = '';
+
+		for (var n = 0; n < words.length; n++) {
+			var testLine = line + words[n] + ' ';
+			var metrics = context.measureText(testLine);
+			var testWidth = metrics.width;
+			if (testWidth > maxWidth && n > 0) {
+				context.fillText(line, x, y);
+				context.strokeText(line, x, y);  // Add this line for the stroke
+				line = words[n] + ' ';
+				y += lineHeight;
+			}
+			else {
+				line = testLine;
+			}
+		}
+		context.fillText(line, x, y);
+		context.strokeText(line, x, y);  // Add this line for the stroke
+	}
+
+	function numbersBoard(result) {
+        var resultString = result.number;
+        ctx.font = 'bold 35px Arial';
 		ctx.textAlign = 'left';
         ctx.fillStyle = "#deff00";
 		return resultString
-
         // ctx.fill();
-        // ctx.fillText(resultString , (canvas.width/2) - (textWidth / 2), 120);
+        // ctx.fillText(resultString , (canvas.width/2) - (textWidth / 2), 80);
     }
+
+	// function titleBoard(result) {
+
+	// 	return result.title;  // Return the title string
+	// }
+
 
 	function resultCallback(result, context) {
 
@@ -179,18 +193,25 @@ if ($SD) {
 			ctx.fillText(numbersBoard(result, context), (canvas.width/2) - (textWidth / 2), 80);
             ctx.strokeText(numbersBoard(result, context), (canvas.width/2) - (textWidth / 2), 80);
 
-			textWidth = ctx.measureText(titleBoard(result)).width;
-			ctx.fillText(titleBoard(result, context), (canvas.width/2) - (textWidth / 2), 120);
-			ctx.strokeText(titleBoard(result, context), (canvas.width/2) - (textWidth / 2), 120);
+			ctx.font = 'bold 25px Arial';
+			ctx.textAlign = 'center';
+			ctx.fillStyle = "#deff00";
+			ctx.strokeStyle = "#000000"; // Black stroke color
+			ctx.lineWidth = 0.75; // Thin stroke
+
+			var maxWidth = 144;  // Set this to the maximum width you want for your text
+			var lineHeight = 20; // Set this to the height you want between lines
+			wrapText(ctx, result.title, canvas.width/2, 110, maxWidth, lineHeight);
+
 
             ctx.font = 'bold 30px Arial';
 		    ctx.fillStyle = "#deff00";
 		    ctx.textAlign = 'left';
-		    ctx.textBaseline = 'middle';
+		    //ctx.textBaseline = 'middle';
 
             ctx.fill();
             textWidth = ctx.measureText("🍪").width;
-            ctx.fillText("🍪", (canvas.width/2) - (textWidth / 2), 20);
+            ctx.fillText("🍪", (canvas.width/2) - (textWidth / 2), 35);
 
             $SD.api.setTitle(context, '', null);
             $SD.api.setImage(
@@ -202,105 +223,53 @@ if ($SD) {
 		}
 	}
 
-    function destroyCanvas() {
-        canvas = document.getElementById('canvas');
-        ctx = canvas.getContext('2d');
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-    }
+	function updateScoreAndTitle (updateTitleFn) {
+		// Define the progression
+		const progression = [
+			{ title: "Grandma", multiplier: 1, minScore: 0, maxScore: 29 },
+			{ title: "Baker", multiplier: 2, minScore: 30, maxScore: 59 },
+			{ title: "Factory", multiplier: 5, minScore: 60, maxScore: 119 },
+			{ title: "Plant", multiplier: 10, minScore: 120, maxScore: 239 },
+			{ title: "S. Plant", multiplier: 15, minScore: 240, maxScore: 479 },
+			{ title: "Mine", multiplier: 20, minScore: 480, maxScore: 959 },
+			{ title: "Shipment", multiplier: 25, minScore: 960, maxScore: 1919 },
+			{ title: "Alchemy Lab", multiplier: 30, minScore: 1920, maxScore: 3839 },
+			{ title: "Portal", multiplier: 35, minScore: 3840, maxScore: 7679 },
+			{ title: "Time Machine", multiplier: 40, minScore: 7680, maxScore: 15359 },
+			{ title: "Antimatter Condenser", multiplier: 50, minScore: 15360, maxScore: 30719 },
+			{ title: "Prism", multiplier: 60, minScore: 30720, maxScore: 61439 },
+			{ title: "Chancemaker", multiplier: 70, minScore: 61440, maxScore: 122879 },
+			{ title: "Fractal Engine", multiplier: 75, minScore: 122880, maxScore: 245759 },
+			{ title: "Javascript Console", multiplier: 80, minScore: 245760, maxScore: 491519 },
+			{ title: "Idleverse", multiplier: 90, minScore: 491520, maxScore: 983039 },
+			{ title: "Wizard Tower", multiplier: 95, minScore: 983040, maxScore: 1966079 },
+			{ title: "Temple", multiplier: 100, minScore: 1966080, maxScore: 3932159 },
+			{ title: "Bank", multiplier: 110, minScore: 3932160, maxScore: 7864319 },
+			{ title: "Cookie Clicking God", multiplier: 120, minScore: 7864320, maxScore: 15728639 },
+			{ title: "Galactic Bakery", multiplier: 130, minScore: 15728640, maxScore: 31457279 },
+			{ title: "Black Hole", multiplier: 140, minScore: 31457280, maxScore: 62914559 },
+			{ title: "Universe Brain", multiplier: 150, minScore: 62914560, maxScore: 125829119 },
+			{ title: "Cookie Elemental", multiplier: 200, minScore: 125829120, maxScore: 251658239 },
+			{ title: "Quantum Baker", multiplier: 220, minScore: 251658240, maxScore: 503316479 }
+		];
 
-	function getResultsIncrease(updateTitleFn) {
+	   // Get the current score
+	   let currentScore = parseInt(localStorage.getItem("score")) || 0;
 
-        // 1x
-        if (localStorage.score >= 0) {
-			var scores = (parseInt(localStorage.getItem("score"))+1);
-			localStorage.setItem("score", scores.toString());
-            updateTitleFn(JSON.parse(JSON.stringify({
-                "number": localStorage.score,
-                "title": "Grandma",
-            })));
-		}
+	   // Find the appropriate title and multiplier based on the current score
+	   for (let i = 0; i < progression.length; i++) {
+		   if (currentScore >= progression[i].minScore && currentScore <= progression[i].maxScore) {
+			   // Update the score
+			   currentScore += progression[i].multiplier;
+			   localStorage.setItem("score", currentScore.toString());
 
-		// 2x
-		if (localStorage.score >= 30) {
-			var scores = (parseInt(localStorage.getItem("score"))+2);
-			localStorage.setItem("score", scores.toString());
-			updateTitleFn(JSON.parse(JSON.stringify({
-                "number": localStorage.score,
-                "title": "Baker",
-            })));
-		}
-
-		// 10x
-		if (localStorage.score >= 500) {
-			var scores = (parseInt(localStorage.getItem("score"))+10);
-			localStorage.setItem("score", scores.toString());
-			updateTitleFn(JSON.parse(JSON.stringify({
-                "number": localStorage.score,
-                "title": "Factory",
-            })));
-		}
-
-		// 30x
-		if (localStorage.score >= 1000) {
-			var scores = (parseInt(localStorage.getItem("score"))+50);
-			localStorage.setItem("score", scores.toString());
-			updateTitleFn(JSON.parse(JSON.stringify({
-                "number": localStorage.score,
-                "title": "Plant",
-            })));
-		}
-
-		// 1000x
-		if (localStorage.score >= 100000) {
-			var scores = (parseInt(localStorage.getItem("score"))+1000);
-			localStorage.setItem("score", scores.toString());
-            updateTitleFn(JSON.parse(JSON.stringify({
-                "number": localStorage.score,
-                "title": "S. Plant",
-            })));
-		}
-
-	}
-	function getResults(updateTitleFn) {
-
-        // 1x
-        if (localStorage.score >= 0) {
-            updateTitleFn(JSON.parse(JSON.stringify({
-                "number": localStorage.score,
-                "title": "Grandma",
-            })));
-		}
-
-		// 2x
-		if (localStorage.score >= 30) {
-			updateTitleFn(JSON.parse(JSON.stringify({
-                "number": localStorage.score,
-                "title": "Baker",
-            })));
-		}
-
-		// 10x
-		if (localStorage.score >= 500) {
-			updateTitleFn(JSON.parse(JSON.stringify({
-                "number": localStorage.score,
-                "title": "Factory",
-            })));
-		}
-
-		// 30x
-		if (localStorage.score >= 1000) {
-			updateTitleFn(JSON.parse(JSON.stringify({
-                "number": localStorage.score,
-                "title": "Plant",
-            })));
-		}
-		// 1000x
-		if (localStorage.score >= 100000) {
-            updateTitleFn(JSON.parse(JSON.stringify({
-                "number": localStorage.score,
-                "title": "S. Plant",
-            })));
-		}
-	}
-
+			   // Update the title
+			   updateTitleFn({
+				   number: currentScore,
+				   title: progression[i].title
+			   });
+			   break;
+		   }
+	   }
+   }
 }

@@ -17,7 +17,7 @@
             <button class="sdpi-item-value" id="saveButton">💾</button>
         </div>
         <div class="sdpi-item">
-            <div class="sdpi-item-label">LeaderBoard</div>
+            <div class="sdpi-item-label">Leaderboard</div>
             <button onclick="openLeaderBoard()">View</button>
         </div>
         <div class="sdpi-item">
@@ -25,12 +25,13 @@
             <details class="sdpi-item-value">
                 <p>Click the cookie to make more cookies<br>
                     Cookie titles upgrade and X a multiplier as you reach cookie clicker milestones<br>
+                    !WARNING! Moving the app to another streamdeck tile or page will reset userid and score!<br>
                     <br>You can learn more about this plugin by visiting its <button onclick="openGithub()">Github
                         page</button></p>
             </details>
         </div>
         <div class="sdpi-item">
-            <button class="sdpi-item-value" id="updateButton">Submit to LeaderBoard</button>
+            <button class="sdpi-item-value" id="updateButton">Submit to Leaderboard</button>
         </div>
     </div>
 
@@ -62,7 +63,7 @@
 
         function openLeaderBoard() {
             $SD.api.openUrl($SD.actionInfo.context,
-                "https://cookie-clicker-leader-board-react.vercel.app/")
+                "https://cookieclickerleaderboard.com/")
         }
         $(document).ready(function () {
 
