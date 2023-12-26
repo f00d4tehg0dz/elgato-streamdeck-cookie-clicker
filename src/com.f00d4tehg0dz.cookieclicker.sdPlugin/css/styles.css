@@ -1,3 +1,17 @@
+@font-face {
+  font-family: 'Nunito';
+  src: url('../font/Nunito-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Nunito';
+  src: url('../font/Nunito-Bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
+
 /* body {
   padding-top: 5px;
   font-family: Arial;
@@ -30,7 +44,7 @@ h2 {
   border:2px solid;
   border-radius:5px;
   background-color:white;
-  height:15px;    
+  height:15px;
 }
 
 #cookieTitle {
@@ -42,5 +56,5 @@ h2 {
   border:2px solid;
   border-radius:5px;
   background-color:lightpink;
-  height:20px;    
+  height:20px;
 } */
