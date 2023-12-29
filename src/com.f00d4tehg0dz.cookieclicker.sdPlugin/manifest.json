@@ -1,8 +1,8 @@
 {
   "Actions": [
     {
-      "Icon": "icon",
-      "Name": "CookieClicker",
+      "Icon": "actions/template/assets/actionimage",
+      "Name": "Tap for Cookies",
       "States": [
         {
           "Image": "icon",
@@ -12,21 +12,21 @@
         }
       ],
       "SupportedInMultiActions": false,
-      "Tooltip": "A CookieClicker plugin developed by f00d4tehg0dz",
+      "Tooltip": "Install me to start Clicking!",
       "UUID": "com.f00d4tehg0dz.cookieclicker.action"
     }
   ],
   "SDKVersion": 2,
   "Author": "f00d4tehg0dz",
   "Category": "Cookie Clicker",
-  "CategoryIcon": "icons/category-icon",
+  "CategoryIcon": "actions/template/assets/category",
   "CodePath": "index.html",
-  "Description": "A CookieClicker Status plugin developed by f00d4tehg0dz.  Please report any issues you see on the project's Github page. I welcome any feedback.",
+  "Description": "Cookie Clicker for StreamDeck: Tap your way to baking success! Enjoy quick, addictive gameplay as you progress from a humble baker to a 'Quantum Baker'. A sweet, fun escape at your fingertips!",
   "Name": "Cookie Clicker",
-  "Icon": "icon",
+  "Icon": "actions/template/assets/action",
   "URL": "https://github.com/f00d4tehg0dz/elgato-streamdeck-cookie-clicker",
   "PropertyInspectorPath": "cookieclicker.html",
-  "Version": "3.6",
+  "Version": "4.0",
   "OS": [
     {
       "Platform": "mac",

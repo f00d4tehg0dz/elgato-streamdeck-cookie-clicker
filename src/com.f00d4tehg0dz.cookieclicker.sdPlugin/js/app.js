@@ -28,11 +28,25 @@ if ($SD) {
 		let settings = jsonObj.payload;
 
 		if (!settings.saveBtn == true)  {
+			if (localStorage.getItem("nameKey") === null) {	
+				localStorage.setItem("nameKey", jsonObj.payload.nameKey.toString());
+				localStorage.nameKey = jsonObj.payload.nameKey
+			  }
+			  else {
+				//localStorage.setItem("nameKey", jsonObj.payload.nameKey.toString());
+			  }
 			$SD.api.setSettings(jsonObj.context, jsonObj.payload);
 			setLeaderBoardScore(settings, uuid);
 			initiateStatus(jsonObj.context, jsonObj.payload);
 		}
 		else {
+			if (localStorage.getItem("nameKey") === null) {	
+				localStorage.setItem("nameKey", jsonObj.payload.nameKey.toString());
+				localStorage.nameKey = jsonObj.payload.nameKey
+			  }
+			  else {
+				//localStorage.setItem("nameKey", jsonObj.payload.nameKey.toString());
+			  }
 			initiateStatus(jsonObj.context, jsonObj.payload.settings);
 			$SD.api.setSettings(jsonObj.context, jsonObj.payload);
 		}
