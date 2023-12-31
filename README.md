@@ -2,13 +2,14 @@
 
 Tap the CookieClicker icon and gain cookies. The more cookies you gain the bigger your fame and title will become!
 Submit your score online, and compete against other stream deck users. 
-[Cookie Clicker LeaderBoard Website](https://cookie-clicker-leader-board-react.vercel.app/)
+[Cookie Clicker LeaderBoard Website](http://cookieclickerleaderboard.com/)
+[Cookie Clicker on Elgato Marketplace!](https://marketplace.elgato.com/product/cookieclicker-8f99f006-9d71-4889-8790-ff7edaf49eea)
 
-This an extension for the [ElGato-StreamDeck](https://www.elgato.com/en/gaming/stream-deck).
+This an extension for the [Elgato-StreamDeck](https://www.elgato.com/en/gaming/stream-deck).
 
 ## Screenshot
 
-![screencap.gif](https://github.com/f00d4tehg0dz/elgato-streamdeck-cookie-clicker/blob/main/elgatogif_AME/elgatogif.gif?raw=true)
+![screencap.gif](https://github.com/f00d4tehg0dz/elgato-streamdeck-cookie-clicker/blob/main/adobe/elgatogif_AME/elgatogif.gif?raw=true)
 
 Please report any issues you see on the project's Github page. I welcome any feedback.
 
@@ -29,3 +30,4 @@ You can debug the Javascript plugin using Google Chrome's web developer tools. I
 After you relaunch the Stream Deck app, you can open [http://localhost:23654/](http://localhost:23654/) in Chrome, where you will find a list of `Inspectable pages` (plugins):
 
 ## Ongoing work
+Update screencap.gif

@@ -1,0 +1,9 @@
+{
+  "Description": "Cookie Clicker for StreamDeck: Tap your way to baking success! Enjoy quick, addictive gameplay as you progress from a humble baker to a 'Quantum Baker'. A sweet, fun escape at your fingertips!",
+  "Name": "Cookie Clicker",
+  "Category": "Game",
+  "com.f00d4tehg0dz.cookieclicker.action": {
+    "Name": "Tap for Cookies",
+    "Tooltip": "Install me to start Clicking!"
+  }
+}
