@@ -34,6 +34,9 @@
         <div class="sdpi-item">
             <button class="sdpi-item-value" id="updateButton">Submit to Leaderboard</button>
         </div>
+        <div class="sdpi-item">
+            <button class="sdpi-item-value" id="resetButton">Reset Score</button>
+        </div>
     </div>
 
 
@@ -80,6 +83,12 @@
                     $SD.api.sendToPlugin(uuid, actionName, payload);
                 }
             });
+
+            $("#resetButton").click(function () {
+                let payload = { resetKey: true };
+                $SD.api.sendToPlugin(uuid, actionName, payload);
+            });
+
 
             $("#saveButton").click(function () {
                 let nameKey = $("#nameKey").val();

@@ -22,37 +22,36 @@ if ($SD) {
 		}
 	});
 
-
 	$SD.on(actionName + ".sendToPlugin", function(jsonObj) {
 		let uuid = jsonObj.context;
 		let settings = jsonObj.payload;
-
-		if (!settings.saveBtn == true)  {
-			if (localStorage.getItem("nameKey") === null) {	
-				localStorage.setItem("nameKey", jsonObj.payload.nameKey.toString());
-				localStorage.nameKey = jsonObj.payload.nameKey
-			  }
-			  else {
-				//localStorage.setItem("nameKey", jsonObj.payload.nameKey.toString());
-			  }
-			$SD.api.setSettings(jsonObj.context, jsonObj.payload);
+	
+		// Check if the reset button was pressed
+		if (settings.resetKey === true) {
+			// Reset the score
+			localStorage.setItem("score", "0");
+			localStorage.score = 0;
+	
+			// Update the leaderboard with the reset score
+			setLeaderBoardScore({ ...settings, score: 0 }, uuid);
+	
+			// Update the display
+			initiateStatus(uuid, { ...settings, score: 0 });
+			resultCallback({ number: "0", title: "Grandma" }, uuid, settings);
+			$SD.api.setSettings(uuid, { ...settings, score: 0 });
+		} else {
+			// Handle other settings updates
+			if (settings.nameKey) {
+				localStorage.setItem("nameKey", settings.nameKey);
+				localStorage.nameKey = settings.nameKey;
+			}
+	
+			// Update settings, leaderboard, and display
+			$SD.api.setSettings(uuid, settings);
 			setLeaderBoardScore(settings, uuid);
-			initiateStatus(jsonObj.context, jsonObj.payload);
+			initiateStatus(uuid, settings);
 		}
-		else {
-			if (localStorage.getItem("nameKey") === null) {	
-				localStorage.setItem("nameKey", jsonObj.payload.nameKey.toString());
-				localStorage.nameKey = jsonObj.payload.nameKey
-			  }
-			  else {
-				//localStorage.setItem("nameKey", jsonObj.payload.nameKey.toString());
-			  }
-			initiateStatus(jsonObj.context, jsonObj.payload.settings);
-			$SD.api.setSettings(jsonObj.context, jsonObj.payload);
-		}
-
 	});
-
 
 	// When pressed, Cookie Clicker Activates!
 	$SD.on(actionName + ".keyUp", function(jsonObj) {
@@ -88,10 +87,9 @@ function initiateStatus(context, settings) {
 	}
 
 	function setNumberIncrease(context, settings) {
-		$SD.api.setTitle(context, "Updating");
-        updateScoreAndTitle (result => resultCallback(result, context, settings));
+			$SD.api.setTitle(context, "Updating");
+			updateScoreAndTitle(result => resultCallback(result, context, settings));
 	}
-
 
 	function setLeaderBoardScore(settings,uuid) {
 		// Set up our HTTP request
@@ -108,7 +106,6 @@ function initiateStatus(context, settings) {
 				xhr.setRequestHeader("Accept", "application/json");
 				xhr.setRequestHeader("Content-Type", "application/json");
 				xhr.setRequestHeader('x-access-token', "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmb28iOiJmdWNrIiwiaWF0IjoxNjYyMzM5NTE4fQ.x-CrvDNdUYu4Okgb1xt1ONg7DHIx9swkrlnUeD2QAoc");
-
 
 				const name = settings.nameKey;
 				let data = `{
@@ -258,7 +255,7 @@ function initiateStatus(context, settings) {
 		return resultString;
 	}
 
-	function resultCallback(result, context) {
+	function resultCallback(result, context, settings) {
 		if (!result.hasOwnProperty("Object")) {
 			canvas = document.createElement('canvas');
 			canvas.width = 144;
@@ -309,10 +306,7 @@ function initiateStatus(context, settings) {
             //ctx.fillText("🍪", (canvas.width/2) - (textWidth / 2), 35);
 
             $SD.api.setTitle(context, '', null);
-            $SD.api.setImage(
-                context,
-                block.getImageData()
-            );
+        	$SD.api.setImage(context, block.getImageData());
 
 			return;
 		}
@@ -335,7 +329,7 @@ function initiateStatus(context, settings) {
 			{ title: "Prism", multiplier: 60, minScore: 30720, maxScore: 61439 },
 			{ title: "Chancemaker", multiplier: 70, minScore: 61440, maxScore: 122879 },
 			{ title: "Fractal Engine", multiplier: 75, minScore: 122880, maxScore: 245759 },
-			{ title: "Jscript Console", multiplier: 80, minScore: 245760, maxScore: 491519 },
+			{ title: "JScript Console", multiplier: 80, minScore: 245760, maxScore: 491519 },
 			{ title: "Idleverse", multiplier: 90, minScore: 491520, maxScore: 983039 },
 			{ title: "Wizard Tower", multiplier: 95, minScore: 983040, maxScore: 1966079 },
 			{ title: "Temple", multiplier: 100, minScore: 1966080, maxScore: 3932159 },
